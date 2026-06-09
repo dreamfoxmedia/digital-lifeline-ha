@@ -115,6 +115,8 @@ class DigitalLifelinePersonSensor(SensorEntity):
             "medication":           p.get("medication"),
             "gender":               p.get("gender"),
             "relation":             p.get("relation"),
+            "organization":         p.get("organization"),
+            "caregiver_function":   p.get("caregiver_function"),
             "notification_types":   p.get("notification_types", []),
             "notification_channels": p.get("notification_channels", []),
             "created_at":           p.get("created_at"),
