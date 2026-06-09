@@ -4,20 +4,21 @@ Sla personen op die via de **Digital Lifeline app** worden aangemaakt en gebruik
 
 ---
 
-## Installatie via HACS
+## Installatie via Home Assistant Add-on Store
 
-1. Ga in Home Assistant naar **HACS → Integraties → ⋮ → Aangepaste repositories**
-2. Voeg de URL van deze GitHub-repository toe en kies categorie **Integratie**
-3. Zoek naar **Digital Lifeline** en klik op **Downloaden**
-4. Herstart Home Assistant
-5. Ga naar **Instellingen → Apparaten & Diensten → Integratie toevoegen**
-6. Zoek op **Digital Lifeline** en volg de stappen
+> Geen HACS nodig – werkt direct via Home Assistant.
 
-## Handmatige installatie
-
-1. Kopieer de map `custom_components/digital_lifeline` naar je Home Assistant configuratiemap onder `custom_components/`
-2. Herstart Home Assistant
-3. Voeg de integratie toe via **Instellingen → Apparaten & Diensten**
+1. Ga in Home Assistant naar **Instellingen → Add-ons → Add-on Store**
+2. Klik op de **⋮ (drie puntjes)** rechtsboven → **Repositories**
+3. Plak de volgende URL en klik **Toevoegen**:
+   ```
+   https://github.com/dreamfoxmedia/digital-lifeline-ha
+   ```
+4. Zoek het **Digital Lifeline** add-on en klik op **Installeren**
+5. Klik op **Starten** en wacht tot je ziet: *Installatie geslaagd!*
+6. **Herstart Home Assistant**
+7. Ga naar **Instellingen → Apparaten & Diensten → Integratie toevoegen**
+8. Zoek op **Digital Lifeline** en volg de stappen
 
 ---
 
@@ -38,7 +39,7 @@ Elke persoon krijgt één van de volgende labels:
 Voor elke persoon wordt een sensor-entiteit aangemaakt:
 
 - **Entity ID:** `sensor.dl_<naam>`
-- **State:** persoon-type als leesbaar label (`Bewaakt persoon`, `Familielid`, `Hulpverlener`)
+- **State:** persoon-type als leesbaar label
 - **Icoon:** `mdi:account-heart` / `mdi:account-group` / `mdi:medical-bag`
 
 ### Beschikbare attributen
@@ -50,20 +51,16 @@ Voor elke persoon wordt een sensor-entiteit aangemaakt:
 | `nickname` | Familienaam |
 | `display_name` | Naam voor meldingen |
 | `birthdate` | Geboortedatum (dd-mm-yyyy) |
-| `address` | Volledig adres (opgemaakte tekst) |
+| `address` | Volledig adres |
 | `phone` | Telefoonnummer |
 | `email` | E-mailadres |
 | `medication` | Medicijngebruik en medische info |
-| `created_at` | Tijdstip van aanmaken |
-| `updated_at` | Tijdstip van laatste wijziging |
 
 ---
 
 ## Acties (services)
 
 ### `digital_lifeline.add_person`
-
-Wordt automatisch aangeroepen door de Digital Lifeline app. Kan ook handmatig worden gebruikt.
 
 ```yaml
 action: digital_lifeline.add_person
@@ -77,7 +74,7 @@ data:
   city: "Amsterdam"
   phone: "+31612345678"
   email: "opa@example.com"
-  medication: "Metformine 500mg, bloedverdunners"
+  medication: "Metformine 500mg"
   person_type: "monitored"
 ```
 
@@ -100,51 +97,35 @@ data:
 
 ---
 
-## Voorbeeld: notificatie sturen bij alarm
+## Voorbeeld: notificatie bij alarm
 
 ```yaml
 automation:
   alias: "Digital Lifeline – Alarm bewaakt persoon"
   trigger:
     - platform: state
-      entity_id: binary_sensor.bewegingssensor_slaapkamer
+      entity_id: binary_sensor.bewegingssensor
       to: "on"
   action:
     - variables:
         persoon: "{{ states.sensor | selectattr('attributes.person_type','eq','monitored') | first }}"
-        familie: "{{ states.sensor | selectattr('attributes.person_type','eq','family') | list }}"
     - action: notify.mobile_app
       data:
         title: "Melding voor {{ persoon.attributes.display_name }}"
         message: >
-          Beweging gedetecteerd bij {{ persoon.attributes.display_name }}.
+          Beweging gedetecteerd.
           Adres: {{ persoon.attributes.address }}.
-          {% if persoon.attributes.medication %}
           Medicijngebruik: {{ persoon.attributes.medication }}
-          {% endif %}
-    - repeat:
-        for_each: "{{ familie }}"
-        sequence:
-          - action: notify.sms
-            data:
-              target: "{{ repeat.item.attributes.phone }}"
-              message: "Alarm: beweging bij {{ persoon.attributes.display_name }}"
 ```
-
----
-
-## Events
-
-De integratie vuurt de volgende Home Assistant events:
-
-| Event | Wanneer |
-|---|---|
-| `digital_lifeline_person_added` | Persoon aangemaakt |
-| `digital_lifeline_person_updated` | Persoon bijgewerkt |
-| `digital_lifeline_person_removed` | Persoon verwijderd |
 
 ---
 
 ## Gegevensopslag
 
-Alle persoonsgegevens worden **lokaal** opgeslagen in Home Assistant (`.storage/digital_lifeline_persons`). Er worden geen gegevens naar externe servers verstuurd.
+Alle gegevens worden **lokaal** opgeslagen in Home Assistant. Er worden geen gegevens naar externe servers verstuurd.
+
+---
+
+## Ondersteuning
+
+Bezoek [help.digitallifeline.nl](https://help.digitallifeline.nl) voor vragen en ondersteuning.

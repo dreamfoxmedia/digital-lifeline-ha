@@ -1,0 +1,13 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Digital Lifeline instellen",
+        "description": "Voeg de Digital Lifeline integratie toe. Na het instellen kun je personen beheren via de Digital Lifeline app of via Instellingen → Acties."
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Slechts één instantie van Digital Lifeline is toegestaan."
+    }
+  }
+}

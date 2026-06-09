@@ -1,0 +1,16 @@
+name: "Digital Lifeline"
+version: "1.0.1"
+slug: "digital_lifeline"
+description: "Installeert de Digital Lifeline integratie. Na installatie kun je personen beheren en notificaties versturen via Home Assistant."
+url: "https://github.com/dreamfoxmedia/digital-lifeline-ha"
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
+startup: application
+boot: manual
+map:
+  - config:rw
+init: false

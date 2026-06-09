@@ -1,0 +1,158 @@
+add_person:
+  name: Persoon toevoegen
+  description: Voeg een persoon toe aan Digital Lifeline. Wordt automatisch aangeroepen door de Digital Lifeline app.
+  fields:
+    nickname:
+      name: Familienaam
+      description: Roepnaam of bijnaam waaraan familieleden de persoon herkennen.
+      required: true
+      example: "Opa"
+      selector:
+        text:
+    display_name:
+      name: Weergavenaam
+      description: Naam gebruikt in meldingen naar familie, mantelzorgers en hulpverleners.
+      example: "Johannes de Vries"
+      selector:
+        text:
+    birthdate:
+      name: Geboortedatum
+      description: Geboortedatum in formaat dd-mm-yyyy.
+      example: "01-01-1945"
+      selector:
+        text:
+    street:
+      name: Straat
+      example: "Dorpsstraat"
+      selector:
+        text:
+    housenumber:
+      name: Huisnummer
+      example: "12 B"
+      selector:
+        text:
+    zipcode:
+      name: Postcode
+      example: "1234 AB"
+      selector:
+        text:
+    city:
+      name: Woonplaats
+      example: "Amsterdam"
+      selector:
+        text:
+    phone:
+      name: Telefoonnummer
+      description: Wordt gebruikt voor SMS/belnotificaties.
+      example: "+31612345678"
+      selector:
+        text:
+    email:
+      name: E-mailadres
+      description: Wordt gebruikt voor e-mailnotificaties.
+      example: "persoon@example.com"
+      selector:
+        text:
+    medication:
+      name: Medicijngebruik
+      description: Medicijngebruik en andere medische informatie die meegezonden kan worden naar hulpverleners.
+      example: "Metformine 500mg, bloedverdunners"
+      selector:
+        text:
+          multiline: true
+    person_type:
+      name: Type persoon
+      description: "monitored = bewaakt persoon, family = familielid, caregiver = hulpverlener"
+      default: "monitored"
+      selector:
+        select:
+          options:
+            - label: "Bewaakt persoon"
+              value: "monitored"
+            - label: "Familielid"
+              value: "family"
+            - label: "Hulpverlener"
+              value: "caregiver"
+    photo:
+      name: Profielfoto (base64)
+      description: Optionele base64-gecodeerde foto.
+      selector:
+        text:
+
+update_person:
+  name: Persoon bijwerken
+  description: Werk de gegevens van een bestaande persoon bij.
+  fields:
+    person_id:
+      name: Persoon-ID
+      description: Het unieke ID van de persoon (te vinden in de sensor-attributen).
+      required: true
+      selector:
+        text:
+    nickname:
+      name: Familienaam
+      selector:
+        text:
+    display_name:
+      name: Weergavenaam
+      selector:
+        text:
+    birthdate:
+      name: Geboortedatum
+      selector:
+        text:
+    street:
+      name: Straat
+      selector:
+        text:
+    housenumber:
+      name: Huisnummer
+      selector:
+        text:
+    zipcode:
+      name: Postcode
+      selector:
+        text:
+    city:
+      name: Woonplaats
+      selector:
+        text:
+    phone:
+      name: Telefoonnummer
+      selector:
+        text:
+    email:
+      name: E-mailadres
+      selector:
+        text:
+    medication:
+      name: Medicijngebruik
+      selector:
+        text:
+          multiline: true
+    person_type:
+      name: Type persoon
+      selector:
+        select:
+          options:
+            - label: "Bewaakt persoon"
+              value: "monitored"
+            - label: "Familielid"
+              value: "family"
+            - label: "Hulpverlener"
+              value: "caregiver"
+    photo:
+      name: Profielfoto (base64)
+      selector:
+        text:
+
+remove_person:
+  name: Persoon verwijderen
+  description: Verwijder een persoon uit Digital Lifeline.
+  fields:
+    person_id:
+      name: Persoon-ID
+      description: Het unieke ID van de persoon (te vinden in de sensor-attributen).
+      required: true
+      selector:
+        text:

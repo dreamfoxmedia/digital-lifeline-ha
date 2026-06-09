@@ -1,0 +1,13 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Set up Digital Lifeline",
+        "description": "Add the Digital Lifeline integration. After setup you can manage persons via the Digital Lifeline app or via Settings → Actions."
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Only one instance of Digital Lifeline is allowed."
+    }
+  }
+}
