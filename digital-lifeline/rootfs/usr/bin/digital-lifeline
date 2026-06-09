@@ -1,31 +1,21 @@
-#!/usr/bin/with-contenv bashio
+#!/bin/bash
 
 TARGET="/config/custom_components/digital_lifeline"
 SOURCE="/integration/custom_components/digital_lifeline"
 
-bashio::log.info "Digital Lifeline: integratie installeren..."
+echo "[INFO] Digital Lifeline: integratie installeren..."
 
-# Verwijder eventuele verouderde versie
 if [ -d "$TARGET" ]; then
-    bashio::log.info "Bestaande installatie gevonden – bijwerken..."
+    echo "[INFO] Bestaande installatie gevonden - bijwerken..."
     rm -rf "$TARGET"
 fi
 
-# Kopieer integratie-bestanden naar HA custom_components
 mkdir -p "$TARGET"
 cp -r "$SOURCE/." "$TARGET/"
 
-bashio::log.info "-----------------------------------------------------"
-bashio::log.info "Installatie geslaagd!"
-bashio::log.info ""
-bashio::log.info "Volgende stap:"
-bashio::log.info "  1. Herstart Home Assistant"
-bashio::log.info "  2. Ga naar Instellingen → Apparaten & Diensten"
-bashio::log.info "  3. Klik op 'Integratie toevoegen'"
-bashio::log.info "  4. Zoek op 'Digital Lifeline' en volg de stappen"
-bashio::log.info "-----------------------------------------------------"
+echo "[INFO] Installatie geslaagd!"
+echo "[INFO] Herstart Home Assistant en voeg de integratie toe via:"
+echo "[INFO]   Instellingen -> Apparaten & Diensten -> Integratie toevoegen"
+echo "[INFO]   Zoek op: Digital Lifeline"
 
-# Actief houden zodat het add-on niet als mislukt wordt gemarkeerd
-while true; do
-    sleep 3600
-done
+while true; do sleep 3600; done
