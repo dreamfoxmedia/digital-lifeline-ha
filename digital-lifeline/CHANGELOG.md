@@ -1,3 +1,7 @@
+## 1.1.2
+
+- Versie bump om Supervisor cache te vernieuwen
+
 ## 1.1.1
 
 - Fix: logging niveau debug → info zodat start/stop zichtbaar is in HA logboek
