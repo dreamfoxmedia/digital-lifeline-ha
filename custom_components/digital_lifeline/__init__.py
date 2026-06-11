@@ -37,8 +37,12 @@ PLATFORMS = ["sensor"]
 # ── Service schemas ──────────────────────────────────────────────────────────
 
 ADD_PERSON_SCHEMA = vol.Schema({
-    vol.Required("nickname"): cv.string,
+    vol.Optional("id", default=""): cv.string,
+    vol.Optional("nickname", default=""): cv.string,
     vol.Optional("display_name", default=""): cv.string,
+    vol.Optional("first_name", default=""): cv.string,
+    vol.Optional("last_name", default=""): cv.string,
+    vol.Optional("gender", default=""): cv.string,
     vol.Optional("birthdate", default=""): cv.string,
     vol.Optional("street", default=""): cv.string,
     vol.Optional("housenumber", default=""): cv.string,
@@ -47,6 +51,11 @@ ADD_PERSON_SCHEMA = vol.Schema({
     vol.Optional("phone", default=""): cv.string,
     vol.Optional("email", default=""): cv.string,
     vol.Optional("medication", default=""): cv.string,
+    vol.Optional("relation", default=""): cv.string,
+    vol.Optional("organization", default=""): cv.string,
+    vol.Optional("caregiver_function", default=""): cv.string,
+    vol.Optional("notification_types", default=[]): vol.All(cv.ensure_list, [cv.string]),
+    vol.Optional("notification_channels", default=[]): vol.All(cv.ensure_list, [cv.string]),
     vol.Optional("person_type", default=PERSON_TYPE_MONITORED): vol.In(PERSON_TYPES),
     vol.Optional("photo", default=""): cv.string,
 })
@@ -97,9 +106,12 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     # ── Service: add_person ──────────────────────────────────────────────────
     async def handle_add_person(call: ServiceCall) -> None:
         person = {
-            "id": str(uuid.uuid4()),
-            "nickname": call.data["nickname"],
+            "id": call.data.get("id") or str(uuid.uuid4()),
+            "nickname": call.data.get("nickname", ""),
             "display_name": call.data.get("display_name", ""),
+            "first_name": call.data.get("first_name", ""),
+            "last_name": call.data.get("last_name", ""),
+            "gender": call.data.get("gender", ""),
             "birthdate": call.data.get("birthdate", ""),
             "street": call.data.get("street", ""),
             "housenumber": call.data.get("housenumber", ""),
@@ -108,6 +120,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             "phone": call.data.get("phone", ""),
             "email": call.data.get("email", ""),
             "medication": call.data.get("medication", ""),
+            "relation": call.data.get("relation", ""),
+            "organization": call.data.get("organization", ""),
+            "caregiver_function": call.data.get("caregiver_function", ""),
+            "notification_types": call.data.get("notification_types", []),
+            "notification_channels": call.data.get("notification_channels", []),
             "person_type": call.data.get("person_type", PERSON_TYPE_MONITORED),
             "photo": call.data.get("photo", ""),
             "created_at": datetime.now().isoformat(),
