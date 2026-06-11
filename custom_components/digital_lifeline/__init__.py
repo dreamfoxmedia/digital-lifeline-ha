@@ -65,6 +65,9 @@ UPDATE_PERSON_SCHEMA = vol.Schema({
     vol.Required("person_id"): cv.string,
     vol.Optional("nickname"): cv.string,
     vol.Optional("display_name"): cv.string,
+    vol.Optional("first_name"): cv.string,
+    vol.Optional("last_name"): cv.string,
+    vol.Optional("gender"): cv.string,
     vol.Optional("birthdate"): cv.string,
     vol.Optional("street"): cv.string,
     vol.Optional("housenumber"): cv.string,
@@ -73,6 +76,12 @@ UPDATE_PERSON_SCHEMA = vol.Schema({
     vol.Optional("phone"): cv.string,
     vol.Optional("email"): cv.string,
     vol.Optional("medication"): cv.string,
+    vol.Optional("notes"): cv.string,
+    vol.Optional("relation"): cv.string,
+    vol.Optional("organization"): cv.string,
+    vol.Optional("caregiver_function"): cv.string,
+    vol.Optional("notification_types"): vol.All(cv.ensure_list, [cv.string]),
+    vol.Optional("notification_channels"): vol.All(cv.ensure_list, [cv.string]),
     vol.Optional("person_type"): vol.In(PERSON_TYPES),
     vol.Optional("photo"): cv.string,
 })
@@ -146,8 +155,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     async def handle_update_person(call: ServiceCall) -> None:
         person_id = call.data["person_id"]
         updatable = [
-            "nickname", "display_name", "birthdate", "street", "housenumber",
-            "zipcode", "city", "phone", "email", "medication", "person_type", "photo",
+            "nickname", "display_name", "first_name", "last_name", "gender",
+            "birthdate", "street", "housenumber", "zipcode", "city", "phone", "email",
+            "medication", "notes", "relation", "organization", "caregiver_function",
+            "notification_types", "notification_channels", "person_type", "photo",
         ]
         for person in hass.data[DOMAIN]["persons"]:
             if person["id"] == person_id:

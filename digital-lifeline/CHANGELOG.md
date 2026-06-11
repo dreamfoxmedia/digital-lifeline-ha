@@ -1,3 +1,8 @@
+## 1.0.9
+
+- update_person schema uitgebreid met alle velden (first_name, last_name, notes, etc.)
+- Bewaakt persoon nu volledig wijzigbaar vanuit de app
+
 ## 1.0.8
 
 - Nieuw veld: `notes` (extra informatie over beperkingen/bijzonderheden)
