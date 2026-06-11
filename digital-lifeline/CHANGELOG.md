@@ -1,3 +1,8 @@
+## 1.1.3
+
+- Uitgebreide logging in add-on Logboek: versie, tijdstip, bestandsaantal, heartbeat
+- Duidelijke foutmelding als kopiëren mislukt
+
 ## 1.1.2
 
 - Versie bump om Supervisor cache te vernieuwen

@@ -3,19 +3,46 @@
 TARGET="/config/custom_components/digital_lifeline"
 SOURCE="/integration/custom_components/digital_lifeline"
 
-echo "[INFO] Digital Lifeline: integratie installeren..."
+# Versie uitlezen uit manifest
+VERSION=$(python3 -c "import json; print(json.load(open('${SOURCE}/manifest.json'))['version'])" 2>/dev/null || echo "onbekend")
+
+echo "========================================"
+echo " Digital Lifeline Add-on gestart"
+echo " Integratie versie: ${VERSION}"
+echo " Tijdstip: $(date '+%Y-%m-%d %H:%M:%S')"
+echo "========================================"
 
 if [ -d "$TARGET" ]; then
-    echo "[INFO] Bestaande installatie gevonden - bijwerken..."
+    CURRENT=$(python3 -c "import json; print(json.load(open('${TARGET}/manifest.json'))['version'])" 2>/dev/null || echo "onbekend")
+    echo "[INFO] Bestaande installatie gevonden (versie ${CURRENT}) - bijwerken naar ${VERSION}..."
     rm -rf "$TARGET"
+else
+    echo "[INFO] Eerste installatie..."
 fi
 
 mkdir -p "$TARGET"
-cp -r "$SOURCE/." "$TARGET/"
+if cp -r "$SOURCE/." "$TARGET/"; then
+    echo "[OK]   Bestanden gekopieerd naar ${TARGET}"
+else
+    echo "[FOUT] Kopiëren mislukt!"
+    exit 1
+fi
 
-echo "[INFO] Installatie geslaagd!"
-echo "[INFO] Herstart Home Assistant en voeg de integratie toe via:"
-echo "[INFO]   Instellingen -> Apparaten & Diensten -> Integratie toevoegen"
-echo "[INFO]   Zoek op: Digital Lifeline"
+# Bestandslijst loggen
+FILE_COUNT=$(find "$TARGET" -type f | wc -l)
+echo "[INFO] ${FILE_COUNT} bestanden geïnstalleerd"
+echo "[OK]   Integratie versie ${VERSION} is gereed"
+echo ""
+echo "[INFO] Herstart Home Assistant om de integratie te activeren."
+echo "[INFO] Ga daarna naar: Instellingen → Apparaten & Diensten → Integratie toevoegen → Digital Lifeline"
+echo "========================================"
 
-while true; do sleep 3600; done
+# Actief houden — elke minuut een heartbeat in het logboek
+COUNTER=0
+while true; do
+    sleep 60
+    COUNTER=$((COUNTER + 1))
+    if [ $((COUNTER % 60)) -eq 0 ]; then
+        echo "[INFO] Add-on actief ($(( COUNTER )) minuten) - $(date '+%Y-%m-%d %H:%M:%S')"
+    fi
+done
