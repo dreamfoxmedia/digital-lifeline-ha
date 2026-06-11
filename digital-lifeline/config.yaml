@@ -1,5 +1,5 @@
 name: "Digital Lifeline"
-version: "1.0.7"
+version: "1.0.8"
 slug: "digital_lifeline"
 description: "Installeert de Digital Lifeline integratie. Na installatie kun je personen beheren en notificaties versturen via Home Assistant."
 url: "https://github.com/dreamfoxmedia/digital-lifeline-ha"

@@ -113,6 +113,7 @@ class DigitalLifelinePersonSensor(SensorEntity):
             "phone":                p.get("phone"),
             "email":                p.get("email"),
             "medication":           p.get("medication"),
+            "notes":                p.get("notes"),
             "gender":               p.get("gender"),
             "relation":             p.get("relation"),
             "organization":         p.get("organization"),

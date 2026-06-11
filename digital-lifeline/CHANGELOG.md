@@ -1,3 +1,8 @@
+## 1.0.8
+
+- Nieuw veld: `notes` (extra informatie over beperkingen/bijzonderheden)
+- `notes` beschikbaar als sensor attribuut voor gebruik in automatiseringen
+
 ## 1.0.7
 
 - Fix: persoon verwijderen in de app verwijdert nu ook de HA entiteit correct
