@@ -1,3 +1,7 @@
+## 1.1.4
+
+- Fix: versie uitlezen via grep/sed in plaats van python3 (niet beschikbaar in base image)
+
 ## 1.1.3
 
 - Uitgebreide logging in add-on Logboek: versie, tijdstip, bestandsaantal, heartbeat

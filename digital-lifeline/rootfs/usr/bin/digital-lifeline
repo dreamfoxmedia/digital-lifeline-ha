@@ -4,7 +4,7 @@ TARGET="/config/custom_components/digital_lifeline"
 SOURCE="/integration/custom_components/digital_lifeline"
 
 # Versie uitlezen uit manifest
-VERSION=$(python3 -c "import json; print(json.load(open('${SOURCE}/manifest.json'))['version'])" 2>/dev/null || echo "onbekend")
+VERSION=$(grep '"version"' "${SOURCE}/manifest.json" | sed 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/' 2>/dev/null || echo "onbekend")
 
 echo "========================================"
 echo " Digital Lifeline Add-on gestart"
@@ -13,7 +13,7 @@ echo " Tijdstip: $(date '+%Y-%m-%d %H:%M:%S')"
 echo "========================================"
 
 if [ -d "$TARGET" ]; then
-    CURRENT=$(python3 -c "import json; print(json.load(open('${TARGET}/manifest.json'))['version'])" 2>/dev/null || echo "onbekend")
+    CURRENT=$(grep '"version"' "${TARGET}/manifest.json" | sed 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/' 2>/dev/null || echo "onbekend")
     echo "[INFO] Bestaande installatie gevonden (versie ${CURRENT}) - bijwerken naar ${VERSION}..."
     rm -rf "$TARGET"
 else
