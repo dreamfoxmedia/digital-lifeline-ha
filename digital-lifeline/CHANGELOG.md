@@ -1,3 +1,7 @@
+## 1.1.5
+
+- Add-on start nu automatisch mee bij HA boot (boot: auto)
+
 ## 1.1.4
 
 - Fix: versie uitlezen via grep/sed in plaats van python3 (niet beschikbaar in base image)
