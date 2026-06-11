@@ -1,3 +1,9 @@
+## 1.1.0
+
+- Fix: integratie stoppen veroorzaakte een fout door niet-afgemelde event listeners
+- Event listeners (person_added/updated/removed) worden nu netjes afgemeld bij unload
+- Betere foutmeldingen in de log bij problemen tijdens stoppen
+
 ## 1.0.9
 
 - update_person schema uitgebreid met alle velden (first_name, last_name, notes, etc.)

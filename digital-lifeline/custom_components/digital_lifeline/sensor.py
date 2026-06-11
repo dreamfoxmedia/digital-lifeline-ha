@@ -53,9 +53,12 @@ async def async_setup_entry(
         if entity:
             hass.async_create_task(entity.async_remove())
 
-    hass.bus.async_listen(EVENT_PERSON_ADDED,   on_person_added)
-    hass.bus.async_listen(EVENT_PERSON_UPDATED, on_person_updated)
-    hass.bus.async_listen(EVENT_PERSON_REMOVED, on_person_removed)
+    unsub = [
+        hass.bus.async_listen(EVENT_PERSON_ADDED,   on_person_added),
+        hass.bus.async_listen(EVENT_PERSON_UPDATED, on_person_updated),
+        hass.bus.async_listen(EVENT_PERSON_REMOVED, on_person_removed),
+    ]
+    hass.data[DOMAIN]["unsub_listeners"] = unsub
 
 
 class DigitalLifelinePersonSensor(SensorEntity):
