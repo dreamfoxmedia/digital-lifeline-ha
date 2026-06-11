@@ -1,3 +1,8 @@
+## 1.1.1
+
+- Fix: logging niveau debug → info zodat start/stop zichtbaar is in HA logboek
+- Fix: add-on icoon op juiste locatie (root add-on map) voor Supervisor
+
 ## 1.1.0
 
 - Fix: integratie stoppen veroorzaakte een fout door niet-afgemelde event listeners

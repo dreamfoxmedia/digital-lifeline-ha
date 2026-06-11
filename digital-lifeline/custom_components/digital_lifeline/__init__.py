@@ -101,6 +101,7 @@ async def async_setup(hass: HomeAssistant, config: dict) -> bool:
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up Digital Lifeline from a config entry."""
+    _LOGGER.info("Digital Lifeline: integratie wordt gestart…")
     store = Store(hass, STORAGE_VERSION, STORAGE_KEY)
     stored = await store.async_load() or {"persons": []}
 
@@ -191,12 +192,14 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     hass.services.async_register(DOMAIN, SERVICE_REMOVE_PERSON, handle_remove_person, schema=REMOVE_PERSON_SCHEMA)
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
+    persons_count = len(hass.data[DOMAIN]["persons"])
+    _LOGGER.info("Digital Lifeline: gestart met %d persoon/personen", persons_count)
     return True
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload a config entry."""
-    _LOGGER.debug("Digital Lifeline: integratie stoppen…")
+    _LOGGER.info("Digital Lifeline: integratie stoppen…")
 
     # Verwijder event listeners voordat platforms worden unloaded
     for unsub in hass.data.get(DOMAIN, {}).get("unsub_listeners", []):
@@ -214,7 +217,7 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             except Exception as err:  # noqa: BLE001
                 _LOGGER.warning("Digital Lifeline: fout bij verwijderen service %s: %s", service, err)
         hass.data.pop(DOMAIN, None)
-        _LOGGER.debug("Digital Lifeline: integratie gestopt")
+        _LOGGER.info("Digital Lifeline: integratie gestopt")
     else:
         _LOGGER.error("Digital Lifeline: stoppen mislukt – platforms konden niet worden unloaded")
 

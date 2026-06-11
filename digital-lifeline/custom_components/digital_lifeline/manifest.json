@@ -1,7 +1,7 @@
 {
   "domain": "digital_lifeline",
   "name": "Digital Lifeline",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "documentation": "https://github.com/dreamfoxmedia/digital-lifeline-ha",
   "issue_tracker": "https://github.com/dreamfoxmedia/digital-lifeline-ha/issues",
   "codeowners": ["@digitallifeline"],
