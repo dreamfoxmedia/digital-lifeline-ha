@@ -1,0 +1,20 @@
+## 1.0.7
+
+- Fix: persoon verwijderen in de app verwijdert nu ook de HA entiteit correct
+- Nieuw: `add_person` service accepteert app-ID zodat app en HA dezelfde ID gebruiken
+- Nieuw velden in service schema: `first_name`, `last_name`, `gender`, `relation`, `organization`, `caregiver_function`, `notification_types`, `notification_channels`
+- Integratie versie 1.0.3
+
+## 1.0.6
+
+- Fix: add-on start werkt nu correct via `init: false` + expliciete ENTRYPOINT
+- Omzeilt S6 overlay problemen in HA base images
+
+## 1.0.5
+
+- Verbeterde sensor attributen: adres, medicatie, meldingen
+- Sensornaam op basis van voor- en achternaam
+
+## 1.0.4
+
+- Initiële add-on release
