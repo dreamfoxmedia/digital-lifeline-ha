@@ -84,7 +84,7 @@ class DigitalLifelinePersonSensor(SensorEntity):
         last  = p.get("last_name")  or ""
         name  = " ".join(filter(None, [first, last])) \
                 or p.get("display_name") or p.get("nickname") or "Onbekend"
-        self._attr_name = f"DL {name}"
+        self._attr_name = f"DigitalLifeline {name}"
         self._attr_icon = _ICONS.get(p.get("person_type", "monitored"), "mdi:account")
 
     @property

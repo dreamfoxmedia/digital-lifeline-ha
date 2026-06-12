@@ -38,7 +38,7 @@ Elke persoon krijgt één van de volgende labels:
 
 Voor elke persoon wordt een sensor-entiteit aangemaakt:
 
-- **Entity ID:** `sensor.dl_<naam>`
+- **Entity ID:** `sensor.digitallifeline_<naam>`
 - **State:** persoon-type als leesbaar label
 - **Icoon:** `mdi:account-heart` / `mdi:account-group` / `mdi:medical-bag`
 
